@@ -15,16 +15,19 @@ export default {
         nodes: [
           {
             id: "circle-graph",
-            size: 80,
-            x: 150,
-            y: 150,
+            label: '系统业务能力\n名称',
+            tag: '系统业务能力',
+            circleSize: 122,
+            menuSize1: 230,
+            menuSize2: 330,
+            x: 200,
+            y: 200,
             color: '#1abc9c',
             menu: [
               {
                 id: 'pie1',
                 title: '1',
                 color: "#E5E5E5",
-                size: 140,
                 label: '1',
                 click: () => {
                   console.log('click1');
@@ -34,7 +37,6 @@ export default {
                     id: 'pie11',
                     title: '11',
                     color: "#E5E5E5",
-                    size: 200,
                     label: '11',
                     click: () => {
                       console.log('click11');
@@ -46,7 +48,6 @@ export default {
                 id: 'pie2',
                 title: '2',
                 color: "#E5E5E5",
-                size: 140,
                 label: '2',
                 click: () => {
                   console.log('click2');
@@ -64,38 +65,38 @@ export default {
                 //   }
                 // ]
               },
-              {
-                id: 'pie3',
-                title: '3',
-                size: 140,
-                label: '3',
-                color: "#E5E5E5",
-                click: () => {
-                  console.log('click3');
-                },
-                menu: [
-                  {
-                    id: 'pie31',
-                    title: '31',
-                    color: "#E5E5E5",
-                    size: 200,
-                    label: '31',
-                    click: () => {
-                      console.log('click31');
-                    }
-                  },
-                  {
-                    id: 'pie32',
-                    title: '32',
-                    color: "#E5E5E5",
-                    size: 200,
-                    label: '32',
-                    click: () => {
-                      console.log('click32');
-                    }
-                  },
-                ]
-              },
+              // {
+              //   id: 'pie3',
+              //   title: '3',
+              //   size: 140,
+              //   label: '3',
+              //   color: "#E5E5E5",
+              //   click: () => {
+              //     console.log('click3');
+              //   },
+              //   menu: [
+              //     {
+              //       id: 'pie31',
+              //       title: '31',
+              //       color: "#E5E5E5",
+              //       size: 200,
+              //       label: '31',
+              //       click: () => {
+              //         console.log('click31');
+              //       }
+              //     },
+              //     {
+              //       id: 'pie32',
+              //       title: '32',
+              //       color: "#E5E5E5",
+              //       size: 200,
+              //       label: '32',
+              //       click: () => {
+              //         console.log('click32');
+              //       }
+              //     },
+              //   ]
+              // },
               // {
               //   id: 'pie4',
               //   title: '4',
@@ -144,6 +145,7 @@ export default {
     renderData() {
       G6.registerNode("pie-node", {
         draw: (cfg, group) => {
+          //圆形节点组
           const circleGraph = group.addGroup({
             id: 'circle-graph',
             name: 'circleGraph',
@@ -151,6 +153,7 @@ export default {
             draggable: true,
             zIndex: 2
           })
+          //环形菜单第一层
           const CMenu = group.addGroup({
             id: 'circular-menu',
             name: 'CMenu',
@@ -159,6 +162,7 @@ export default {
             visible: false,
             zIndex: 1
           })
+          //环形菜单第二层
           const CMenu2 = group.addGroup({
             id: 'circular-menu2',
             name: 'CMenu2',
@@ -167,12 +171,18 @@ export default {
             draggable: true,
             zIndex: 0
           })
-          if (cfg.menu.length > 1) {
+          if (cfg.hasOwnProperty('menu') && cfg.menu.length > 1) {
             cfg.menu.forEach((item, index) => {
-              const radius = item.size / 2;
-              function angles(index, len) {
-                const anglePerSection = 2 * Math.PI / len;
-                const startAngle = anglePerSection * (index + 1) - anglePerSection;
+              const radius = cfg.menuSize1 / 2;//环形菜单半径
+              /**
+               * 获取每个菜单的起始弧度和结束弧度
+               * @param {number} index 菜单序号
+               * @param {number} num 菜单个数
+               */
+              function angles(index, num) {
+                const anglePerSection = 2 * Math.PI / num;//菜单的弧度
+                const startAngle = anglePerSection * (index + 1) - anglePerSection;//菜单的起始弧度
+                //菜单的结束弧度
                 const endAngle = anglePerSection * (index + 2) - anglePerSection >= 2 * Math.PI ? anglePerSection * (index + 2) - 2 * Math.PI - anglePerSection : anglePerSection * (index + 2) - anglePerSection;
                 return {
                   startAngle,
@@ -180,8 +190,7 @@ export default {
                 };
               }
               const { startAngle, endAngle } = angles(index, cfg.menu.length);
-              const isInBigArc = endAngle - startAngle > Math.PI ? 1 : 0;
-
+              const isInBigArc = endAngle - startAngle > Math.PI ? 1 : 0; //是否为最大弧度
               CMenu.addShape("path", {
                 attrs: {
                   path: [
@@ -209,6 +218,7 @@ export default {
                 capture: true,
                 name: `menu${index}`,
               });
+              //标签的坐标
               let labelX = (radius * Math.cos((startAngle + endAngle) / 2)) / 1.5
               let labelY = (radius * Math.sin((startAngle + endAngle) / 2)) / 1.5
               if (cfg.menu.length === index + 1) {
@@ -232,10 +242,11 @@ export default {
                 },
                 name: `menu-label${index}`,
               });
+              //判断是否有第二层环形菜单
               if (item.hasOwnProperty('menu') && item.menu.length > 0) {
-
                 item.menu.forEach((menu2, index) => {
-                  const menuTwoRadius = menu2.size / 2
+                  const menuTwoRadius = cfg.menuSize2 / 2
+                  //根据第一层菜单的起始和结束弧度算出第二层菜单的总弧度
                   const totalAngle = endAngle > 0 ? (endAngle - startAngle) / item.menu.length : (Math.PI * 2 - startAngle) / item.menu.length
                   const meunTwoStartAngle = startAngle + (index * totalAngle)
                   const meunTwoendAngle = startAngle + ((index + 1) * totalAngle)
@@ -287,46 +298,118 @@ export default {
               }
             })
           } else {
+            //当第一层只有一个菜单时，环形菜单为一个圆环
             CMenu.addShape("circle", {
               attrs: {
                 x: 0,
                 y: 0,
-                r: cfg.menu[0].size / 2, // 圆形半径
+                r: cfg.menu[0].menuSize1 / 2, // 圆形半径
                 fill: cfg.menu[0].color,
                 lineWidth: 0,
                 cursor: 'pointer',
               },
               capture: true,
-              name: `menu1`,
+              name: `menu0`,
+            });
+            CMenu.addShape('text', {
+              attrs: {
+                text: cfg.menu[0].label,
+                x: 0,
+                y: -cfg.menu[0].menuSize1 / 2.6,
+                fontSize: 12,
+                textAlign: 'left',
+                textBaseline: 'middle',
+                fill: 'rgba(0,0,0,0.65)',
+                opacity: 1,
+                zIndex: 1
+              },
+              name: `menu-label0`,
             });
           }
+          //圆形节点
           circleGraph.addShape("circle", {
             attrs: {
               x: 0,
               y: 0,
-              r: cfg.size / 2, // 圆形半径
-              fill: cfg.color,
+              r: cfg.circleSize / 2 + 5, // 圆形半径
+              fill: '#fff',
               lineWidth: 0,
+              stroke: cfg.color,
               cursor: 'pointer',
             },
             capture: true,
-            name: `circleGraph`,
+            name: `circleGraph1`,
           })
+          // circleGraph.addShape("ellipse", {
+          //   attrs: {
+          //     x: 0,
+          //     y: cfg.circleSize / 2.5,
+          //     rx: cfg.circleSize / 2,
+          //     ry: cfg.circleSize / 5,
+          //     fill: cfg.color,
+          //     lineWidth: 0,
+          //     stroke: cfg.color,
+          //     cursor: 'pointer',
+          //   },
+          //   capture: true,
+          //   name: `ellipseGraph`,
+          // })
+          circleGraph.addShape("circle", {
+            attrs: {
+              x: 0,
+              y: 0,
+              r: cfg.circleSize / 2, // 圆形半径
+              fill: cfg.color,
+              lineWidth: 0,
+              stroke: '#fff',
+              cursor: 'pointer',
+            },
+            capture: true,
+            name: `circleGraph2`,
+          })
+          circleGraph.addShape('text', {
+            attrs: {
+              text: cfg.label,
+              fontSize: 18,
+              textAlign: 'center',
+              textBaseline: 'middle',
+              fill: '#fff',
+              lineHeight: 24,
+              opacity: 1,
+              zIndex: 1
+            },
+            name: `circleGraph-label`,
+          });
+          circleGraph.addShape('text', {
+            attrs: {
+              text: cfg.tag,
+              y: cfg.circleSize / 2.8,
+              fontSize: 10,
+              textAlign: 'center',
+              textBaseline: 'middle',
+              fill: '#fff',
+              lineHeight: 24,
+              opacity: 1,
+              zIndex: 1
+            },
+            name: `circleGraph-tag`,
+          });
           return null;
         },
         afterDraw(cfg, group) {
           group.sort()
           const circleGraphGroup = group.findById('circle-graph')
-          const circleGraph = group.find((element) => element.get('name') === `circleGraph`);
+          const circleGraph1 = group.find((element) => element.get('name') === `circleGraph1`);
+          const circleGraph2 = group.find((element) => element.get('name') === `circleGraph2`);
           const CMenu_1Group = group.findById('circular-menu')
           const CMenu_2Group = group.findById('circular-menu2')
-          var isLeaveMenu_1 = null
-          var isLeaveMenu_2 = null
-          circleGraph.on('mouseenter', () => {
+          circleGraph2.on('mouseenter', () => {
+            console.log(circleGraph1);
+            circleGraph1.attr('lineWidth',2)
             CMenu_1Group.show()
             group.get('canvas').draw();
           });
-          circleGraph.on('mouseleave', () => {
+          circleGraph2.on('mouseleave', () => {
             group.get('canvas').draw();
           });
           // circleGraph.on('click', () => {
@@ -341,6 +424,7 @@ export default {
           group.on('mouseleave', () => {
             CMenu_1Group.hide()
             CMenu_2Group.hide()
+            circleGraph1.attr('lineWidth',0)
             group.get('canvas').draw();
           })
           for (let i = 0; i < cfg.menu.length; i++) {
@@ -352,27 +436,27 @@ export default {
             CMenuItem.on('mouseenter', () => {
               CMenuItem.attr('fill', '#444');
               CMenuLabel.attr('fill', '#fff');
-              if (CMenuData.hasOwnProperty('menu') && CMenuData.menu.length > 0) {
-                CMenu_2Group.find(function (item) {
-                  item.attr('opacity', 0)
-                })
-                CMenuData.menu.forEach(menu => {
-                  const CMenu2_pie = CMenu_2Group.find(function (item) {
-                    return item.cfg.name === `menu2${menu.id}`;
+              if (cfg.menu.length > 1) {
+                if (CMenuData.hasOwnProperty('menu') && CMenuData.menu.length > 0) {
+                  CMenu_2Group.find(function (item) {
+                    item.attr('opacity', 0)
                   })
-                  const CMenu2_label = CMenu_2Group.find(function (item) {
-                    return item.cfg.name === `menu2-label${menu.id}`;
+                  CMenuData.menu.forEach(menu => {
+                    const CMenu2_pie = CMenu_2Group.find(function (item) {
+                      return item.cfg.name === `menu2${menu.id}`;
+                    })
+                    const CMenu2_label = CMenu_2Group.find(function (item) {
+                      return item.cfg.name === `menu2-label${menu.id}`;
+                    })
+                    if (CMenu2_pie.attr('opacity') === 0) {
+                      CMenu2_pie.attr('opacity', 1)
+                    } else {
+                      CMenu2_pie.attr('opacity', 0)
+                    }
+                    CMenu2_label.attr('opacity', 1)
                   })
-                  if (CMenu2_pie.attr('opacity') === 0) {
-                    CMenu2_pie.attr('opacity', 1)
-                  } else {
-                    CMenu2_pie.attr('opacity', 0)
-                  }
-
-                  CMenu2_label.attr('opacity', 1)
-                })
-
-                CMenu_2Group.show()
+                  CMenu_2Group.show()
+                }
               }
               group.get('canvas').draw();
             });
