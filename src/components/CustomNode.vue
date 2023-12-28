@@ -15,13 +15,127 @@ export default {
         nodes: [
           {
             id: "circle-graph",
-            label: '系统业务能力\n名称',
+            label: '系统业务能力名称',
             tag: '系统业务能力',
             circleSize: 122,
             menuSize1: 230,
             menuSize2: 330,
-            x: 200,
-            y: 200,
+            color: '#1abc9c',
+            menu: [
+              {
+                id: 'pie1',
+                title: '1',
+                color: "#E5E5E5",
+                label: '1',
+                click: () => {
+                  console.log('click1');
+                },
+                menu: [
+                  {
+                    id: 'pie11',
+                    title: '11',
+                    color: "#E5E5E5",
+                    label: '11',
+                    click: () => {
+                      console.log('click11');
+                    }
+                  }
+                ]
+              },
+              {
+                id: 'pie2',
+                title: '2',
+                color: "#E5E5E5",
+                label: '2',
+                click: () => {
+                  console.log('click2');
+                },
+                // menu: [
+                //   {
+                //     id: 'pie11',
+                //     title: '11',
+                //     color: "#1abc9c",
+                //     size: 200,
+                //     label: '11',
+                //     click: () => {
+                //       console.log('click11');
+                //     }
+                //   }
+                // ]
+              },
+              // {
+              //   id: 'pie3',
+              //   title: '3',
+              //   size: 140,
+              //   label: '3',
+              //   color: "#E5E5E5",
+              //   click: () => {
+              //     console.log('click3');
+              //   },
+              //   menu: [
+              //     {
+              //       id: 'pie31',
+              //       title: '31',
+              //       color: "#E5E5E5",
+              //       size: 200,
+              //       label: '31',
+              //       click: () => {
+              //         console.log('click31');
+              //       }
+              //     },
+              //     {
+              //       id: 'pie32',
+              //       title: '32',
+              //       color: "#E5E5E5",
+              //       size: 200,
+              //       label: '32',
+              //       click: () => {
+              //         console.log('click32');
+              //       }
+              //     },
+              //   ]
+              // },
+              // {
+              //   id: 'pie4',
+              //   title: '4',
+              //   color: "#f1c40f",
+              //   size:140,
+              //   label: '4',
+              //   menu: [
+              //     {
+              //       id: 'pie41',
+              //       title: '41',
+              //       color: "#1abc9c",
+              //       size: 200,
+              //       label: '41',
+              //       click: () => {
+              //         console.log('click41');
+              //       }
+              //     },
+              //     {
+              //       id: 'pie42',
+              //       title: '42',
+              //       color: "#fabc9c",
+              //       size: 200,
+              //       label: '12',
+              //       click: () => {
+              //         console.log('click42');
+              //       }
+              //     },
+              //   ]
+              // },
+              // { id: 'pie5', title: '5' ,color: "#e67e22",label: '5',size:140,},
+              // { id: 'pie6', title: '6' ,color: "#f9bc8c",label: '6',size:140,},
+              // { id: 'pie7', title: '7' ,color: "#e69e22",label: '7',},
+            ]
+          },
+          {
+            id: "circle-graph1",
+            label: '系统业务能力名称',
+            tag: '系统业务能力',
+            circleSize: 122,
+            menuSize1: 230,
+            menuSize2: 330,
             color: '#1abc9c',
             menu: [
               {
@@ -158,7 +272,6 @@ export default {
             id: 'circular-menu',
             name: 'CMenu',
             capture: true,
-            draggable: true,
             visible: false,
             zIndex: 1
           })
@@ -168,7 +281,6 @@ export default {
             name: 'CMenu2',
             capture: true,
             visible: false,
-            draggable: true,
             zIndex: 0
           })
           if (cfg.hasOwnProperty('menu') && cfg.menu.length > 1) {
@@ -326,6 +438,19 @@ export default {
               name: `menu-label0`,
             });
           }
+          function wrapString(str){
+            if(str){
+              if(str.length>6&&str.length<=9){
+                return str.slice(0,6)+'\n'+wrapString(str.slice(6))
+              }else if(str.replace(/\n/g,'').length===10){
+                return str.slice(0,6)+'\n'+str.replace(/\n/g,'').slice(6,10)
+              }else if(str.replace(/\n/g,'').length>10){
+                return str.slice(0,6)+'\n'+str.replace(/\n/g,'').slice(6,10)+'...'
+              }else{
+                return str
+              }
+            }
+          }
           //圆形节点
           circleGraph.addShape("circle", {
             attrs: {
@@ -336,8 +461,10 @@ export default {
               lineWidth: 0,
               stroke: cfg.color,
               cursor: 'pointer',
+              zIndex: 1
             },
             capture: true,
+            draggable: true,
             name: `circleGraph1`,
           })
           // circleGraph.addShape("ellipse", {
@@ -354,7 +481,7 @@ export default {
           //   capture: true,
           //   name: `ellipseGraph`,
           // })
-          circleGraph.addShape("circle", {
+          const circleNode = circleGraph.addShape("circle", {
             attrs: {
               x: 0,
               y: 0,
@@ -363,21 +490,25 @@ export default {
               lineWidth: 0,
               stroke: '#fff',
               cursor: 'pointer',
+              zIndex: 1
             },
             capture: true,
+            draggable: true,
             name: `circleGraph2`,
           })
           circleGraph.addShape('text', {
             attrs: {
-              text: cfg.label,
+              text: wrapString(cfg.label) ,
               fontSize: 18,
               textAlign: 'center',
               textBaseline: 'middle',
               fill: '#fff',
               lineHeight: 24,
+              cursor: 'pointer',
               opacity: 1,
               zIndex: 1
             },
+            draggable: true,
             name: `circleGraph-label`,
           });
           circleGraph.addShape('text', {
@@ -389,12 +520,14 @@ export default {
               textBaseline: 'middle',
               fill: '#fff',
               lineHeight: 24,
+              cursor: 'pointer',
               opacity: 1,
               zIndex: 1
             },
+            draggable: true,
             name: `circleGraph-tag`,
           });
-          return null;
+          return circleNode;
         },
         afterDraw(cfg, group) {
           group.sort()
@@ -403,9 +536,21 @@ export default {
           const circleGraph2 = group.find((element) => element.get('name') === `circleGraph2`);
           const CMenu_1Group = group.findById('circular-menu')
           const CMenu_2Group = group.findById('circular-menu2')
+          //开始拖动节点，隐藏环形菜单
+          circleGraphGroup.on('dragstart',()=>{
+            CMenu_1Group.hide()
+            CMenu_2Group.hide()
+          })
+          // circleGraphGroup.on('drag',()=>{
+          //   console.log('拖动了1');
+          // })
+          //结束拖动节点，显示环形菜单
+          circleGraphGroup.on('dragend',()=>{
+            CMenu_1Group.show()
+            CMenu_2Group.show()
+          })
           circleGraph2.on('mouseenter', () => {
-            console.log(circleGraph1);
-            circleGraph1.attr('lineWidth',2)
+            circleGraph1.attr('lineWidth', 2)
             CMenu_1Group.show()
             group.get('canvas').draw();
           });
@@ -424,7 +569,7 @@ export default {
           group.on('mouseleave', () => {
             CMenu_1Group.hide()
             CMenu_2Group.hide()
-            circleGraph1.attr('lineWidth',0)
+            circleGraph1.attr('lineWidth', 0)
             group.get('canvas').draw();
           })
           for (let i = 0; i < cfg.menu.length; i++) {
@@ -519,10 +664,13 @@ export default {
 
       const graph = new G6.Graph({
         container: container,
-        width: 500,
-        height: 500,
+        width: 1000,
+        height: 1000,
         fitCenter: true,
         linkCenter: true,
+        modes: {
+          default: ['drag-canvas', 'zoom-canvas', 'drag-node', 'activate-relations'], // 允许拖拽画布、放缩画布、拖拽节点
+        },
         defaultNode: {
           type: "pie-node",
         },
