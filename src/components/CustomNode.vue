@@ -12,123 +12,57 @@ export default {
     return {
       graph: null,
       data: {
-        nodes: [
+        id: "circle-graph",
+        label: '系统业务能力名称',
+        tag: '系统业务能力',
+        circleSize: 122,
+        menuSize1: 230,
+        menuSize2: 330,
+        color: '#1abc9c',
+        menu: [
           {
-            id: "circle-graph",
+            id: 'pie1',
+            title: '系统业务能力名称',
+            color: "#E5E5E5",
             label: '系统业务能力名称',
-            tag: '系统业务能力',
-            circleSize: 122,
-            menuSize1: 230,
-            menuSize2: 330,
-            color: '#1abc9c',
+            click: () => {
+              console.log('click1');
+            },
             menu: [
               {
-                id: 'pie1',
-                title: '1',
+                id: 'pie11',
+                title: '11',
                 color: "#E5E5E5",
-                label: '1',
+                label: '11',
                 click: () => {
-                  console.log('click1');
-                },
-                menu: [
-                  {
-                    id: 'pie11',
-                    title: '11',
-                    color: "#E5E5E5",
-                    label: '11',
-                    click: () => {
-                      console.log('click11');
-                    }
-                  }
-                ]
-              },
-              {
-                id: 'pie2',
-                title: '2',
-                color: "#E5E5E5",
-                label: '2',
-                click: () => {
-                  console.log('click2');
-                },
-                // menu: [
-                //   {
-                //     id: 'pie11',
-                //     title: '11',
-                //     color: "#1abc9c",
-                //     size: 200,
-                //     label: '11',
-                //     click: () => {
-                //       console.log('click11');
-                //     }
-                //   }
-                // ]
-              },
-              // {
-              //   id: 'pie3',
-              //   title: '3',
-              //   size: 140,
-              //   label: '3',
-              //   color: "#E5E5E5",
-              //   click: () => {
-              //     console.log('click3');
-              //   },
-              //   menu: [
-              //     {
-              //       id: 'pie31',
-              //       title: '31',
-              //       color: "#E5E5E5",
-              //       size: 200,
-              //       label: '31',
-              //       click: () => {
-              //         console.log('click31');
-              //       }
-              //     },
-              //     {
-              //       id: 'pie32',
-              //       title: '32',
-              //       color: "#E5E5E5",
-              //       size: 200,
-              //       label: '32',
-              //       click: () => {
-              //         console.log('click32');
-              //       }
-              //     },
-              //   ]
-              // },
-              // {
-              //   id: 'pie4',
-              //   title: '4',
-              //   color: "#f1c40f",
-              //   size:140,
-              //   label: '4',
-              //   menu: [
-              //     {
-              //       id: 'pie41',
-              //       title: '41',
-              //       color: "#1abc9c",
-              //       size: 200,
-              //       label: '41',
-              //       click: () => {
-              //         console.log('click41');
-              //       }
-              //     },
-              //     {
-              //       id: 'pie42',
-              //       title: '42',
-              //       color: "#fabc9c",
-              //       size: 200,
-              //       label: '12',
-              //       click: () => {
-              //         console.log('click42');
-              //       }
-              //     },
-              //   ]
-              // },
-              // { id: 'pie5', title: '5' ,color: "#e67e22",label: '5',size:140,},
-              // { id: 'pie6', title: '6' ,color: "#f9bc8c",label: '6',size:140,},
-              // { id: 'pie7', title: '7' ,color: "#e69e22",label: '7',},
+                  console.log('click11');
+                }
+              }
             ]
           },
+          {
+            id: 'pie2',
+            title: '2',
+            color: "#E5E5E5",
+            label: '2',
+            click: () => {
+              console.log('click2');
+            },
+            // menu: [
+            //   {
+            //     id: 'pie11',
+            //     title: '11',
+            //     color: "#1abc9c",
+            //     size: 200,
+            //     label: '11',
+            //     click: () => {
+            //       console.log('click11');
+            //     }
+            //   }
+            // ]
+          },
+        ],
+        children: [
           {
             id: "circle-graph1",
             label: '系统业务能力名称',
@@ -179,73 +113,170 @@ export default {
                 //   }
                 // ]
               },
-              // {
-              //   id: 'pie3',
-              //   title: '3',
-              //   size: 140,
-              //   label: '3',
-              //   color: "#E5E5E5",
-              //   click: () => {
-              //     console.log('click3');
-              //   },
-              //   menu: [
-              //     {
-              //       id: 'pie31',
-              //       title: '31',
-              //       color: "#E5E5E5",
-              //       size: 200,
-              //       label: '31',
-              //       click: () => {
-              //         console.log('click31');
-              //       }
-              //     },
-              //     {
-              //       id: 'pie32',
-              //       title: '32',
-              //       color: "#E5E5E5",
-              //       size: 200,
-              //       label: '32',
-              //       click: () => {
-              //         console.log('click32');
-              //       }
-              //     },
-              //   ]
-              // },
-              // {
-              //   id: 'pie4',
-              //   title: '4',
-              //   color: "#f1c40f",
-              //   size:140,
-              //   label: '4',
-              //   menu: [
-              //     {
-              //       id: 'pie41',
-              //       title: '41',
-              //       color: "#1abc9c",
-              //       size: 200,
-              //       label: '41',
-              //       click: () => {
-              //         console.log('click41');
-              //       }
-              //     },
-              //     {
-              //       id: 'pie42',
-              //       title: '42',
-              //       color: "#fabc9c",
-              //       size: 200,
-              //       label: '12',
-              //       click: () => {
-              //         console.log('click42');
-              //       }
-              //     },
-              //   ]
-              // },
-              // { id: 'pie5', title: '5' ,color: "#e67e22",label: '5',size:140,},
-              // { id: 'pie6', title: '6' ,color: "#f9bc8c",label: '6',size:140,},
-              // { id: 'pie7', title: '7' ,color: "#e69e22",label: '7',},
+            ],
+            children: [
+              {
+                id: "circle-graph4",
+                label: '系统业务能力名称',
+                tag: '系统业务能力',
+                circleSize: 122,
+                menuSize1: 230,
+                menuSize2: 330,
+                color: '#1abc9c',
+                menu: [
+                  {
+                    id: 'pie1',
+                    title: '1',
+                    color: "#E5E5E5",
+                    label: '1',
+                    click: () => {
+                      console.log('click1');
+                    },
+                    menu: [
+                      {
+                        id: 'pie11',
+                        title: '11',
+                        color: "#E5E5E5",
+                        label: '11',
+                        click: () => {
+                          console.log('click11');
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    id: 'pie2',
+                    title: '2',
+                    color: "#E5E5E5",
+                    label: '2',
+                    click: () => {
+                      console.log('click2');
+                    },
+                    // menu: [
+                    //   {
+                    //     id: 'pie11',
+                    //     title: '11',
+                    //     color: "#1abc9c",
+                    //     size: 200,
+                    //     label: '11',
+                    //     click: () => {
+                    //       console.log('click11');
+                    //     }
+                    //   }
+                    // ]
+                  },
+                ],
+
+              },
+              {
+                id: "circle-graph5",
+                label: '系统业务能力名称',
+                tag: '系统业务能力',
+                circleSize: 122,
+                menuSize1: 230,
+                menuSize2: 330,
+                color: '#1abc9c',
+                menu: [
+                  {
+                    id: 'pie1',
+                    title: '1',
+                    color: "#E5E5E5",
+                    label: '1',
+                    click: () => {
+                      console.log('click1');
+                    },
+                    menu: [
+                      {
+                        id: 'pie11',
+                        title: '11',
+                        color: "#E5E5E5",
+                        label: '11',
+                        click: () => {
+                          console.log('click11');
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    id: 'pie2',
+                    title: '2',
+                    color: "#E5E5E5",
+                    label: '2',
+                    click: () => {
+                      console.log('click2');
+                    },
+                    // menu: [
+                    //   {
+                    //     id: 'pie11',
+                    //     title: '11',
+                    //     color: "#1abc9c",
+                    //     size: 200,
+                    //     label: '11',
+                    //     click: () => {
+                    //       console.log('click11');
+                    //     }
+                    //   }
+                    // ]
+                  },
+                ]
+              },
+
             ]
           },
-        ],
+          {
+            id: "circle-graph2",
+            label: '系统业务能力名称',
+            tag: '系统业务能力',
+            circleSize: 122,
+            menuSize1: 230,
+            menuSize2: 330,
+            color: '#1abc9c',
+            menu: [
+              {
+                id: 'pie1',
+                title: '1',
+                color: "#E5E5E5",
+                label: '1',
+                click: () => {
+                  console.log('click1');
+                },
+                menu: [
+                  {
+                    id: 'pie11',
+                    title: '11',
+                    color: "#E5E5E5",
+                    label: '11',
+                    click: () => {
+                      console.log('click11');
+                    }
+                  }
+                ]
+              },
+              {
+                id: 'pie2',
+                title: '2',
+                color: "#E5E5E5",
+                label: '2',
+                click: () => {
+                  console.log('click2');
+                },
+                // menu: [
+                //   {
+                //     id: 'pie11',
+                //     title: '11',
+                //     color: "#1abc9c",
+                //     size: 200,
+                //     label: '11',
+                //     click: () => {
+                //       console.log('click11');
+                //     }
+                //   }
+                // ]
+              },
+            ]
+          },
+
+        ]
       },
 
     };
@@ -346,7 +377,7 @@ export default {
                   x: labelX,
                   y: labelY,
                   fontSize: 12,
-                  textAlign: 'left',
+                  textAlign: 'center',
                   textBaseline: 'middle',
                   fill: 'rgba(0,0,0,0.65)',
                   opacity: 1,
@@ -398,7 +429,7 @@ export default {
                       x: labelX,
                       y: -labelY,
                       fontSize: 12,
-                      textAlign: 'left',
+                      textAlign: 'center',
                       textBaseline: 'middle',
                       fill: 'rgba(0,0,0,0.65)',
                       opacity: 0,
@@ -429,7 +460,7 @@ export default {
                 x: 0,
                 y: -cfg.menu[0].menuSize1 / 2.6,
                 fontSize: 12,
-                textAlign: 'left',
+                textAlign: 'center',
                 textBaseline: 'middle',
                 fill: 'rgba(0,0,0,0.65)',
                 opacity: 1,
@@ -438,15 +469,15 @@ export default {
               name: `menu-label0`,
             });
           }
-          function wrapString(str){
-            if(str){
-              if(str.length>6&&str.length<=9){
-                return str.slice(0,6)+'\n'+wrapString(str.slice(6))
-              }else if(str.replace(/\n/g,'').length===10){
-                return str.slice(0,6)+'\n'+str.replace(/\n/g,'').slice(6,10)
-              }else if(str.replace(/\n/g,'').length>10){
-                return str.slice(0,6)+'\n'+str.replace(/\n/g,'').slice(6,10)+'...'
-              }else{
+          function wrapString(str) {
+            if (str) {
+              if (str.length > 6 && str.length <= 9) {
+                return str.slice(0, 6) + '\n' + wrapString(str.slice(6))
+              } else if (str.replace(/\n/g, '').length === 10) {
+                return str.slice(0, 6) + '\n' + str.replace(/\n/g, '').slice(6, 10)
+              } else if (str.replace(/\n/g, '').length > 10) {
+                return str.slice(0, 6) + '\n' + str.replace(/\n/g, '').slice(6, 10) + '...'
+              } else {
                 return str
               }
             }
@@ -498,7 +529,7 @@ export default {
           })
           circleGraph.addShape('text', {
             attrs: {
-              text: wrapString(cfg.label) ,
+              text: wrapString(cfg.label),
               fontSize: 18,
               textAlign: 'center',
               textBaseline: 'middle',
@@ -537,7 +568,7 @@ export default {
           const CMenu_1Group = group.findById('circular-menu')
           const CMenu_2Group = group.findById('circular-menu2')
           //开始拖动节点，隐藏环形菜单
-          circleGraphGroup.on('dragstart',()=>{
+          circleGraphGroup.on('dragstart', () => {
             CMenu_1Group.hide()
             CMenu_2Group.hide()
           })
@@ -545,7 +576,7 @@ export default {
           //   console.log('拖动了1');
           // })
           //结束拖动节点，显示环形菜单
-          circleGraphGroup.on('dragend',()=>{
+          circleGraphGroup.on('dragend', () => {
             CMenu_1Group.show()
             CMenu_2Group.show()
           })
@@ -661,18 +692,45 @@ export default {
     init() {
 
       const container = this.$refs.graphContainer; // 更新获取容器的方式
-
-      const graph = new G6.Graph({
+      const width = container.scrollWidth;
+      const height = container.scrollHeight || 500;
+      const graph = new G6.TreeGraph({
         container: container,
-        width: 1000,
-        height: 1000,
+        width,
+        height,
         fitCenter: true,
         linkCenter: true,
         modes: {
-          default: ['drag-canvas', 'zoom-canvas', 'drag-node', 'activate-relations'], // 允许拖拽画布、放缩画布、拖拽节点
+          default: [{
+            type: 'collapse-expand',
+            onChange: function onChange(item, collapsed) {
+              const data = item.getModel();
+              data.collapsed = collapsed;
+              return true;
+            },
+          }, 'drag-canvas', 'zoom-canvas', 'drag-node', 'activate-relations'], // 允许拖拽画布、放缩画布、拖拽节点
         },
         defaultNode: {
           type: "pie-node",
+        },
+        layout: {
+          type: 'compactBox',
+          direction: 'TB',
+          getId: function getId(d) {
+            return d.id;
+          },
+          getHeight: function getHeight() {
+            return 100;
+          },
+          getWidth: function getWidth() {
+            return 100;
+          },
+          getVGap: function getVGap() {
+            return 80;
+          },
+          getHGap: function getHGap() {
+            return 20;
+          },
         },
       });
 
