@@ -578,7 +578,7 @@ export default {
           //结束拖动节点，显示环形菜单
           circleGraphGroup.on('dragend', () => {
             CMenu_1Group.show()
-            CMenu_2Group.show()
+            // CMenu_2Group.show()
           })
           circleGraph2.on('mouseenter', () => {
             circleGraph1.attr('lineWidth', 2)
@@ -677,20 +677,32 @@ export default {
           }
         },
         update(cfg, node) {
-          for (let i = 0; i < cfg.menu.length; i++) {
-            const CMenuItem = node.find((element) => element.get('name') === `menu${i}`);
-            console.log(CMenuItem);
-            CMenuItem.cfg.attrs.fill = '#ccc'
-          }
+          // console.log(cfg,node);
+          const keyShape = node.getKeyShape()
+          keyShape.attr({
+            ...cfg.style
+          })
         },
         setState(name, value, item) {
-          console.log(name, value, item);
+          if (name === 'dark' && value === true) {
+            const itemModel = item.getModel()
+            itemModel.style = {
+              opacity: 0.2
+            }
+            this.update(itemModel, item)
+          }
+          if ((name === 'highlight' && value === true)||(name === 'dark' && value === false)) {
+            const itemModel = item.getModel()
+            itemModel.style = {
+              opacity: 1
+            }
+            this.update(itemModel, item)
+          }
         }
 
       });
     },
     init() {
-
       const container = this.$refs.graphContainer; // 更新获取容器的方式
       const width = container.scrollWidth;
       const height = container.scrollHeight || 500;
@@ -743,6 +755,50 @@ export default {
         let { item } = evt;
         console.log(item);
       });
+      graph.on('node:mouseleave', (e) => {
+        graph.setAutoPaint(false);
+        graph.getNodes().forEach(function (node) {
+          graph.clearItemStates(node);
+        });
+        graph.getEdges().forEach(function (edge) {
+          graph.clearItemStates(edge);
+        });
+        graph.paint();
+        graph.setAutoPaint(true);
+      });
+      graph.on('node:mouseenter', function (e) {
+        const item = e.item;
+        graph.setAutoPaint(false);
+        graph.getNodes().forEach(function (node) {
+          graph.clearItemStates(node);
+          graph.setItemState(node, 'dark', true);
+        });
+        graph.setItemState(item, 'dark', false);
+        graph.setItemState(item, 'highlight', true);
+        graph.getEdges().forEach(function (edge) {
+          if (edge.getSource() === item) {
+            graph.setItemState(edge.getTarget(), 'dark', false);
+            graph.setItemState(edge.getTarget(), 'highlight', true);
+            graph.setItemState(edge, 'highlight', true);
+            edge.toFront();
+          } else if (edge.getTarget() === item) {
+            graph.setItemState(edge.getSource(), 'dark', false);
+            graph.setItemState(edge.getSource(), 'highlight', true);
+            graph.setItemState(edge, 'highlight', true);
+            edge.toFront();
+          } else {
+            graph.setItemState(edge, 'highlight', false);
+          }
+        });
+        graph.paint();
+        graph.setAutoPaint(true);
+      });
+      // graph.on('afteractivaterelations', (e) => {
+      //   // 当前操作的节点 item
+      //   console.log(e.item);
+      //   // 当前操作是选中(`'activate'`)还是取消选中(`'deactivate'`)
+      //   console.log(e.action);
+      // });
       // 处理窗口大小变化的部分，根据需要取消注释
       // if (typeof window !== "undefined") {
       //   window.onresize = () => {
