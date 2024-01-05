@@ -282,6 +282,13 @@ export default {
               data.collapsed = collapsed;
               return true;
             },
+            shouldBegin: (e, self) => {
+              const target = e.target.cfg
+              const group = target.parent.cfg//当前节点被点击的组
+              // 若当前操作的节点的组 id 为 'circular-menu'或'circular-menu2'，则不发生 collapse-expand
+              if (e.target.group && (group.id === 'circular-menu'||group.id === 'circular-menu2')) return false;
+              return true;
+            },
           }, 'drag-canvas', 'zoom-canvas', 'drag-node'], // 允许拖拽画布、放缩画布、拖拽节点
         },
         defaultNode: {
@@ -310,7 +317,6 @@ export default {
 
       graph.on("node:click", function (evt) {
         let { item } = evt;
-        console.log(item);
       });
       graph.on('node:mouseleave', (e) => {
         clearAllStats(graph)
