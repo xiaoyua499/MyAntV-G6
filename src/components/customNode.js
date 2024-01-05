@@ -284,30 +284,32 @@ export function renderData(graph, data) {
         name: `circleGraph2`,
       })
       //节点下面的椭圆阴影
-      const xOffset = -cfg.circleSize / 2.65;//x轴偏移
-      const yOffset = cfg.circleSize / 3.46;//y轴偏移
-      circleGraph.addShape("path", {
-        attrs: {
-          path: [
-            ["M", 45.5876 + xOffset, 25.6 + yOffset],
-            ["C", 27.3311 + xOffset, 25.5719 + yOffset, 10.9863 + xOffset, 17.39 + yOffset, 0 + xOffset, 4.50111 + yOffset],
-            ["C", 11.0052 + xOffset, 1.74675 + yOffset, 27.3875 + xOffset, 0 + yOffset, 45.682 + xOffset, 0 + yOffset],
-            ["C", 63.9767 + xOffset, 0 + yOffset, 80.3589 + xOffset, 1.74675 + yOffset, 91.3641 + xOffset, 4.50111 + yOffset],
-            ["C", 80.3778 + xOffset, 17.39 + yOffset, 64.033 + xOffset, 25.5719 + yOffset, 45.7765 + xOffset, 25.6 + yOffset],
-            ["C", 45.745 + xOffset, 25.6 + yOffset, 45.7135 + xOffset, 25.6 + yOffset],
-            ["L", 45.5876 + xOffset, 25.62 + yOffset],
-            ["Z", xOffset, yOffset]
-          ],
-          lineWidth: 0,
-          stroke: '#fff',
-          fill: "#000",
-          cursor: 'pointer',
-          opacity: 0.1,
-          zIndex: 1
-        },
-        capture: true,
-        name: `intersection`,
-      });
+      if (cfg.hasOwnProperty('tag') && cfg.tag) {
+        const xOffset = -cfg.circleSize / 2.65;//x轴偏移
+        const yOffset = cfg.circleSize / 3.46;//y轴偏移
+        circleGraph.addShape("path", {
+          attrs: {
+            path: [
+              ["M", 45.5876 + xOffset, 25.6 + yOffset],
+              ["C", 27.3311 + xOffset, 25.5719 + yOffset, 10.9863 + xOffset, 17.39 + yOffset, 0 + xOffset, 4.50111 + yOffset],
+              ["C", 11.0052 + xOffset, 1.74675 + yOffset, 27.3875 + xOffset, 0 + yOffset, 45.682 + xOffset, 0 + yOffset],
+              ["C", 63.9767 + xOffset, 0 + yOffset, 80.3589 + xOffset, 1.74675 + yOffset, 91.3641 + xOffset, 4.50111 + yOffset],
+              ["C", 80.3778 + xOffset, 17.39 + yOffset, 64.033 + xOffset, 25.5719 + yOffset, 45.7765 + xOffset, 25.6 + yOffset],
+              ["C", 45.745 + xOffset, 25.6 + yOffset, 45.7135 + xOffset, 25.6 + yOffset],
+              ["L", 45.5876 + xOffset, 25.62 + yOffset],
+              ["Z", xOffset, yOffset]
+            ],
+            lineWidth: 0,
+            stroke: '#fff',
+            fill: "#000",
+            cursor: 'pointer',
+            opacity: 0.1,
+            zIndex: 1
+          },
+          capture: true,
+          name: `intersection`,
+        });
+      }
       //标题
       circleGraph.addShape('text', {
         attrs: {

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div ref="graphContainer" style="width: 100%; height: 500px"></div>
-  </div>
+  <div ref="graphContainer" style="width: 100%; height: 100%"></div>
 </template>
 
 <script>
@@ -43,7 +41,7 @@ export default {
             ],
           },
         ],
-        edges:[]
+        edges: []
       }
 
     };
