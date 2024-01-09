@@ -4,7 +4,7 @@
 
 <script>
 import G6 from "@antv/g6";
-import { renderData, graphHighlight, clearAllStats } from '@/components/customNode.js'
+import { renderData, graphHighlight, clearAllStats } from '@/components/CustomNode/customNode.js'
 export default {
   data() {
     return {

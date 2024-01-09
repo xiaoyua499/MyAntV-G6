@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div ref="graphContainer" style="width: 100%; height: 500px"></div>
-  </div>
+  <div ref="graphContainer" style="width: 100%; height: 500px"></div>
 </template>
 
 <script>
 import G6 from "@antv/g6";
-import { renderData, graphHighlight, clearAllStats } from '@/components/customNode.js'
+import { renderData, graphHighlight, clearAllStats } from '@/components/CustomNode/customNode.js'
 export default {
   data() {
     return {
@@ -286,7 +284,7 @@ export default {
               const target = e.target.cfg
               const group = target.parent.cfg//当前节点被点击的组
               // 若当前操作的节点的组 id 为 'circular-menu'或'circular-menu2'，则不发生 collapse-expand
-              if (e.target.group && (group.id === 'circular-menu'||group.id === 'circular-menu2')) return false;
+              if (e.target.group && (group.id === 'circular-menu' || group.id === 'circular-menu2')) return false;
               return true;
             },
           }, 'drag-canvas', 'zoom-canvas', 'drag-node'], // 允许拖拽画布、放缩画布、拖拽节点
