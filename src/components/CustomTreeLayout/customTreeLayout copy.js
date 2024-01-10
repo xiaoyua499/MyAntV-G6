@@ -2,52 +2,53 @@ import G6 from "@antv/g6";
 import { renderData, graphHighlight, clearAllStats } from '@/components/CustomNode/customNode.js'
 
 export function renderLayout(graph, data) {
-  function generateRows(data) {
-    const rows = [];
-    data.forEach(item => {
-      if(item.parentId!==null){
-        rows.push({
-          source: item.id,
-          target: item.parentId || null
+  const treeDataConvert = (data) => {
+    // console.log(data, 123);
+    const treeData = {}
+    const nodes = []
+    const edges = []
+    let layer = 0
+    function addLayerToTree(tree, layer = 0) {
+      tree.layer = layer; // 添加层级字段
+
+      if (tree.children) {
+        tree.children.forEach(child => {
+          addLayerToTree(child, layer + 1); // 递归调用，增加子节点的层级
         });
       }
-    });
-    return rows;
-  }
-  data.edges = generateRows(data.nodes)
-  graph.data(data);
-  function treeDataConvert(array) {
-    const map = {};
-    const trees = [];
-
-    array.forEach(item => {
-      const layer = item.parentId === null ? 0 : map[item.parentId].layer + 1;
-      const x = 0;
-      const y = layer * 200;
-
-      const newItem = { ...item, children: [], layer, x, y };
-      map[item.id] = newItem;
-
-      if (item.parentId !== null) {
-        newItem.parent = map[item.parentId];
+    }
+    addLayerToTree(data.nodes[0])
+    G6.Util.traverseTree(data.nodes[0], (subTree, parent, index) => {
+      let edge = {}
+      if (parent) {
+        edge = {
+          source: parent.id,
+          target: subTree.id,
+        }
       }
-    });
-
-    array.forEach(item => {
-      if (item.parentId !== null) {
-        map[item.parentId].children.push(map[item.id]);
+      if (!subTree.hasOwnProperty('children')) {
+        subTree.children = []
+      }
+      subTree.parent = parent
+      if (Object.keys(edge).length !== 0) {
+        edges.push(edge)
+      }
+      subTree.x = 0
+      if (parent) {
+        subTree.y = Math.floor(parent.y) + 200
       } else {
-        trees.push(map[item.id]);
+        subTree.y = (index + 1) * 200
       }
+      subTree.type = "customNode"
+      nodes.push(subTree)
+      return true;
     });
-
-    return trees;
+    treeData.nodes = nodes
+    treeData.edges = edges
+    return treeData
   }
-
-
-  // const treeData = treeDataConvert(data.nodes)
-  // console.log(treeData);
-  // renderData(graph, data.nodes[0])
+  const treeData = treeDataConvert(data)
+  renderData(graph, data.nodes[0])
   G6.registerLayout('customTreeLayout', {
     /**
      * 定义自定义行为的默认参数，会与用户传入的参数进行合并
@@ -63,21 +64,19 @@ export function renderLayout(graph, data) {
      * 初始化
      * @param {Object} data 数据
      */
-    // init(data) {
-    //   const self = this;
-    //   console.log(data);
-    //   const treeData = treeDataConvert(data.nodes)
-    //   self.treeData=treeData
-    //   // self.nodes = treeData;
-    //   // self.edges = data.edges;
-    //   console.log('init', self);
-    // },
+    init(data) {
+      const self = this;
+      console.log(data);
+      // const treeData = treeDataConvert(data)
+      self.nodes = data.nodes;
+      self.edges = data.edges;
+      console.log('init', self);
+    },
     /**
      * 执行布局
      */
     execute() {
       const self = this;
-      const treeData = treeDataConvert(self.nodes)
       const count = 0
       const nodeWidth = self.nodeSize
       const nodeHeight = self.nodeSize
@@ -88,7 +87,7 @@ export function renderLayout(graph, data) {
       let hashTree = []
       const renderRequestCount = 0
       const renderCount = 0
-      const root = treeData[0]
+      const root = self.nodes[0]
       const treeLayout = () => {
         hashTree = generateArraysByLevel(root)
         layoutChild(root);
@@ -128,9 +127,10 @@ export function renderLayout(graph, data) {
       }
 
       const translateTree = (node, x) => {
+        // console.log(node,x);
         let dx = x - node.x;
         node.x = x;
-        node.ox = node.x
+        node.ox=node.x
         for (let i = 0; i < node.children.length; i++) {
           translateTree(node.children[i], node.children[i].x + dx);
         }
@@ -173,6 +173,7 @@ export function renderLayout(graph, data) {
         }
       }
       const layoutChild = (node) => {
+        // console.log(node.x);
         if (node.children.length === 0) return;
         else {
           let start = node.x - (node.children.length - 1) * nodeInterval / 2;
@@ -213,38 +214,42 @@ export function renderLayout(graph, data) {
         });
       }
       treeLayout()
-      function treesToArray(trees) {
-        const array = [];
-
-        function traverse(node) {
-          const { children, ...rest } = node;
-          array.push(rest);
-          if (children) {
-            children.forEach(child => traverse(child));
-          }
-        }
-
-        trees.forEach(tree => traverse(tree));
-
-        return array;
-      }
-      const nodes = treesToArray([root])
-      // self.nodes = nodes
-      // graph.layout()
-      // 将计算得到的位置信息更新到原始节点数组中
-      nodes.forEach(calculatedNode => {
-        // 找到对应的实际节点数据在原始节点数组中的索引
-        const index = self.nodes.findIndex(node => node.id === calculatedNode.id);
-
-        // 如果找到了对应的节点，则更新其位置信息
-        if (index !== -1) {
-          self.nodes[index].x = calculatedNode.x;
-          self.nodes[index].y = calculatedNode.y;
-        }
-      });
+      console.log('execute');
 
     },
-  });
+    /**
+     * 根据传入的数据进行布局
+     * @param {Object} data 数据
+     */
+    layout(data) {
+      console.log('layout');
+      // console.log(data.nodes[0]);
+      // const self = this;
+      // const treeData = treeDataConvert(data)
+      // self.init();
+      // self.execute();
+    },
+    /**
+     * 更新布局配置，但不执行布局
+     * @param {Object} cfg 需要更新的配置项
+     */
+    updateCfg(cfg) {
+      console.log('updateCfg');
 
+      const self = this;
+      Util.mix(self, cfg);
+    },
+    /**
+     * 销毁
+     */
+    destroy() {
+      const self = this;
+      self.positions = null;
+      self.nodes = null;
+      self.edges = null;
+      self.destroyed = true;
+    },
+  });
+  graph.data(treeData);
   graph.render();
 }
