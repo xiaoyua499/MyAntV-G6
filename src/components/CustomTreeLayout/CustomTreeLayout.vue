@@ -14,6 +14,173 @@ export default {
       graph: null,
       data: {
         nodes: [
+          // {
+          //   id: "circle-graph",
+          //   label: '系统',
+          //   tag: '系统业务能力',
+          //   circleSize: 122,
+          //   menuSize1: 230,
+          //   menuSize2: 330,
+          //   color: '#60D7A7',
+          //   children: [
+          //     {
+          //       id: "circle-graph1",
+          //       label: '1',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //         {
+          //           id: 'pie1121',
+          //           title: '系统业务能力名称',
+          //           color: "#E5E5E5",
+          //           label: '系统业务能力名称',
+          //           click: () => {
+          //             console.log('click1');
+          //           }
+          //         }
+          //       ],
+          //       children: [
+          //         {
+          //           id: "circle-graph4",
+          //           label: '11',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //             {
+          //               id: 'pie11441',
+          //               title: '系统业务能力名称',
+          //               color: "#E5E5E5",
+          //               label: '系统业务能力名称',
+          //               click: () => {
+          //                 console.log('click1');
+          //               }
+          //             }
+          //           ],
+          //         },
+          //         {
+          //           id: "circle-graph5",
+          //           label: '12',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //             {
+          //               id: 'pie144111',
+          //               title: '系统业务能力名称',
+          //               color: "#E5E5E5",
+          //               label: '系统业务能力名称',
+          //               click: () => {
+          //                 console.log('click1');
+          //               }
+          //             }
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+          //     {
+          //       id: "circle-graph11",
+          //       label: '1',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //         {
+          //           id: 'pie111uu',
+          //           title: '系统业务能力名称',
+          //           color: "#E5E5E5",
+          //           label: '系统业务能力名称',
+          //           click: () => {
+          //             console.log('click1');
+          //           }
+          //         }
+          //       ],
+          //       children: [
+          //         {
+          //           id: "circle-graph41",
+          //           label: '11',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+          //         {
+          //           id: "circle-graph51",
+          //           label: '12',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+          //     {
+          //       id: "circle-graph2",
+          //       label: '2',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //       ],
+          //       children: [
+          //         {
+          //           id: "circle-graph7",
+          //           label: '21',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+          //         {
+          //           id: "circle-graph8",
+          //           label: '22',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+
+          //   ],
+          //   menu: [
+          //     {
+          //       id: 'pie111',
+          //       title: '系统业务能力名称',
+          //       color: "#E5E5E5",
+          //       label: '系统业务能力名称',
+          //       click: () => {
+          //         console.log('click1');
+          //       }
+          //     }
+          //   ],
+          // },
           { id: '1', parentId: null, label: 'Object 1' },
           { id: '2', parentId: '1', label: 'Object 2' },
           { id: '3', parentId: '1', label: 'Object 3' },
@@ -28,6 +195,163 @@ export default {
       },
       data2: {
         nodes: [
+          // {
+          //   id: "circle-graph",
+          //   label: '系统',
+          //   tag: '系统业务能力',
+          //   circleSize: 122,
+          //   menuSize1: 230,
+          //   menuSize2: 330,
+          //   color: '#60D7A7',
+          //   children: [
+          //     {
+          //       id: "circle-graph1",
+          //       label: '1',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //         {
+          //           id: 'pie1121',
+          //           title: '系统业务能力名称',
+          //           color: "#E5E5E5",
+          //           label: '系统业务能力名称',
+          //           click: () => {
+          //             console.log('click1');
+          //           }
+          //         }
+          //       ],
+          //       children: [
+          //         {
+          //           id: "circle-graph4",
+          //           label: '11',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //             {
+          //               id: 'pie11441',
+          //               title: '系统业务能力名称',
+          //               color: "#E5E5E5",
+          //               label: '系统业务能力名称',
+          //               click: () => {
+          //                 console.log('click1');
+          //               }
+          //             }
+          //           ],
+          //         },
+          //         {
+          //           id: "circle-graph5",
+          //           label: '12',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //             {
+          //               id: 'pie144111',
+          //               title: '系统业务能力名称',
+          //               color: "#E5E5E5",
+          //               label: '系统业务能力名称',
+          //               click: () => {
+          //                 console.log('click1');
+          //               }
+          //             }
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+          //     {
+          //       id: "circle-graph11",
+          //       label: '1',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //         {
+          //           id: 'pie111uu',
+          //           title: '系统业务能力名称',
+          //           color: "#E5E5E5",
+          //           label: '系统业务能力名称',
+          //           click: () => {
+          //             console.log('click1');
+          //           }
+          //         }
+          //       ],
+          //       children: [
+                  
+          //         {
+          //           id: "circle-graph51",
+          //           label: '12',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+          //     {
+          //       id: "circle-graph2",
+          //       label: '2',
+          //       tag: '系统业务能力',
+          //       circleSize: 122,
+          //       menuSize1: 230,
+          //       menuSize2: 330,
+          //       color: '#1abc9c',
+          //       menu: [
+          //       ],
+          //       children: [
+          //         {
+          //           id: "circle-graph7",
+          //           label: '21',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+          //         {
+          //           id: "circle-graph8",
+          //           label: '22',
+          //           tag: '系统业务能力',
+          //           circleSize: 122,
+          //           menuSize1: 230,
+          //           menuSize2: 330,
+          //           color: '#1abc9c',
+          //           menu: [
+          //           ],
+          //         },
+
+          //       ]
+          //     },
+
+          //   ],
+          //   menu: [
+          //     {
+          //       id: 'pie111',
+          //       title: '系统业务能力名称',
+          //       color: "#E5E5E5",
+          //       label: '系统业务能力名称',
+          //       click: () => {
+          //         console.log('click1');
+          //       }
+          //     }
+          //   ],
+          // },
           { id: '1', parentId: null, label: 'Object 1' },
           { id: '2', parentId: '1', label: 'Object 2' },
           { id: '3', parentId: '1', label: 'Object 3' },

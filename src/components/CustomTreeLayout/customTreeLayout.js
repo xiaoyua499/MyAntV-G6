@@ -2,21 +2,37 @@ import G6 from "@antv/g6";
 import { renderData, graphHighlight, clearAllStats } from '@/components/CustomNode/customNode.js'
 
 export function renderLayout(graph, data) {
-  function generateRows(data) {
-    const rows = [];
+  //获取边
+  function getEdges(nodes) {
+    const edges = [];
     data.forEach(item => {
-      if(item.parentId!==null){
+      if (item.parentId !== null) {
         rows.push({
           source: item.id,
           target: item.parentId || null
         });
       }
     });
-    return rows;
+    return edges;
   }
-  data.edges = generateRows(data.nodes)
-  graph.data(data);
-  function treeDataConvert(array) {
+  //树形数据转数组对象
+  function treesToArray(trees) {
+    const array = [];
+
+    function traverse(node) {
+      const { children, ...rest } = node;
+      array.push(rest);
+      if (children) {
+        children.forEach(child => traverse(child));
+      }
+    }
+
+    trees.forEach(tree => traverse(tree));
+
+    return array;
+  }
+  //数组对象转树形数据
+  function arrayToTree(array) {
     const map = {};
     const trees = [];
 
@@ -45,7 +61,7 @@ export function renderLayout(graph, data) {
   }
 
 
-  // const treeData = treeDataConvert(data.nodes)
+  // const treeData = arrayToTree(data.nodes)
   // console.log(treeData);
   // renderData(graph, data.nodes[0])
   G6.registerLayout('customTreeLayout', {
@@ -60,24 +76,16 @@ export function renderLayout(graph, data) {
       };
     },
     /**
-     * 初始化
-     * @param {Object} data 数据
-     */
-    // init(data) {
-    //   const self = this;
-    //   console.log(data);
-    //   const treeData = treeDataConvert(data.nodes)
-    //   self.treeData=treeData
-    //   // self.nodes = treeData;
-    //   // self.edges = data.edges;
-    //   console.log('init', self);
-    // },
-    /**
      * 执行布局
      */
     execute() {
       const self = this;
-      const treeData = treeDataConvert(self.nodes)
+      const edges = getEdges(self.nodes)
+      edges.forEach(edge => {
+        graph.addItem('edge', edge)
+      })
+      self.edges = edges;
+      const treeData = arrayToTree(self.nodes)
       const count = 0
       const nodeWidth = self.nodeSize
       const nodeHeight = self.nodeSize
@@ -89,6 +97,7 @@ export function renderLayout(graph, data) {
       const renderRequestCount = 0
       const renderCount = 0
       const root = treeData[0]
+      //执行布局
       const treeLayout = () => {
         hashTree = generateArraysByLevel(root)
         layoutChild(root);
@@ -186,51 +195,9 @@ export function renderLayout(graph, data) {
       const isOverlaps = (node1, node2) => {
         return (node1.x - node2.x) > 0 || (node2.x - node1.x) < nodeInterval;
       }
-      const patch = (node) => {
-        if (node.x !== node.ox) {
-
-          node.ox = node.x;
-        }
-
-        for (let i = 0; i < node.children.length; i++) {
-          patch(node.children[i]);
-        }
-      }
-      const update = () => {
-        renderRequestCount++;
-
-        renderCount++;
-        // 异步更新
-        requestAnimationFrame(() => {
-          renderCount++;
-
-          if (renderCount === renderRequestCount) {
-            layout();
-            patch(root);
-
-            renderCount = renderRequestCount = 0;
-          }
-        });
-      }
       treeLayout()
-      function treesToArray(trees) {
-        const array = [];
-
-        function traverse(node) {
-          const { children, ...rest } = node;
-          array.push(rest);
-          if (children) {
-            children.forEach(child => traverse(child));
-          }
-        }
-
-        trees.forEach(tree => traverse(tree));
-
-        return array;
-      }
+      
       const nodes = treesToArray([root])
-      // self.nodes = nodes
-      // graph.layout()
       // 将计算得到的位置信息更新到原始节点数组中
       nodes.forEach(calculatedNode => {
         // 找到对应的实际节点数据在原始节点数组中的索引
@@ -245,6 +212,6 @@ export function renderLayout(graph, data) {
 
     },
   });
-
+  graph.data(data);
   graph.render();
 }
