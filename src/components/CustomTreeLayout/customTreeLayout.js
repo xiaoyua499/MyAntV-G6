@@ -5,9 +5,9 @@ export function renderLayout(graph, data) {
   //获取边
   function getEdges(nodes) {
     const edges = [];
-    data.forEach(item => {
+    nodes.forEach(item => {
       if (item.parentId !== null) {
-        rows.push({
+        edges.push({
           source: item.id,
           target: item.parentId || null
         });
